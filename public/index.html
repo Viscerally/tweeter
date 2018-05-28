@@ -4,7 +4,7 @@
 <head>
   <!-- Meta Information -->
   <title>Tweeter - Home Page</title>
-
+  
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <!-- jquery goes here -->
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
   <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
   <!-- External JS -->
+  <script>https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.js</script>
   <script type="text/javascript" src="/vendor/jquery-2.2.3.min.js"></script>
   <script type="text/javascript" src="scripts/composer-char-counter.js"></script>
   <!-- App JS -->
@@ -45,10 +46,10 @@
       <article class="tweet">
         <header>   
           <img src="https://i.imgur.com/Xif2b9R.jpg?1" style="width:50px;height:60px;border-radius: 20px;">
-          <span class="tweethandle"> Donald Trump </span>
+          <span class="tweetername"> Donald Trump </span>
           <span class="tweetholla">@POTUS</span>
         </header>
-        <section>
+        <section class="tweetbod">
           <p>I think that would qualify as not smart, but genius....and a very stable genius at that! </p>
         </section>
         <footer class= "tweettimer"> 

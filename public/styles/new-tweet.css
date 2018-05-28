@@ -39,7 +39,8 @@ header {
 .showTweets {
   border-radius: 20px;
     padding: 10px;
-    margin-top: 20px
+    margin-top: 20px;
+    background-color: lemonchiffon;
 }    
 
 .tweettimer i {
