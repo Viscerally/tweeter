@@ -1,91 +1,143 @@
-/*
- * Client-side JS logic goes here
- * jQuery is already loaded
- * Reminder: Use (and do all your DOM work in) jQuery's document ready function
- */
+// /*
+//  * Client-side JS logic goes here
+//  * jQuery is already loaded
+//  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
+//  */
 
-// Test / driver code (temporary). Eventually will get this from the server.
-// var moment = require('moment');
+// // Test / driver code (temporary). Eventually will get this from the server.
+// // var moment = require('moment');
 
-const data = [
-  {
-    "user": {
-      "name": "Newton",
-      "avatars": {
-        "small": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png",
-        "regular": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png",
-        "large": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png"
-      },
-      "handle": "@SirIsaac"
-    },
-    "content": {
-      "text": "If I have seen further it is by standing on the shoulders of giants"
-    },
-    "created_at": 1461116232227
-  },
-  {
-    "user": {
-      "name": "Descartes",
-      "avatars": {
-        "small": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_50.png",
-        "regular": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc.png",
-        "large": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_200.png"
-      },
-      "handle": "@rd"
-    },
-    "content": {
-      "text": "Je pense , donc je suis"
-    },
-    "created_at": 1461113959088
-  },
-  {
-    "user": {
-      "name": "Johann von Goethe",
-      "avatars": {
-        "small": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_50.png",
-        "regular": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1.png",
-        "large": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_200.png"
-      },
-      "handle": "@johann49"
-    },
-    "content": {
-      "text": "Es ist nichts schrecklicher als eine tätige Unwissenheit."
-    },
-    "created_at": 1461113796368
-  }
-];
+// const data = [
+//   {
+//     "user": {
+//       "name": "Newton",
+//       "avatars": {
+//         "small": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png",
+//         "regular": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png",
+//         "large": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png"
+//       },
+//       "handle": "@SirIsaac"
+//     },
+//     "content": {
+//       "text": "If I have seen further it is by standing on the shoulders of giants"
+//     },
+//     "created_at": 1461116232227
+//   },
+//   {
+//     "user": {
+//       "name": "Descartes",
+//       "avatars": {
+//         "small": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_50.png",
+//         "regular": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc.png",
+//         "large": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_200.png"
+//       },
+//       "handle": "@rd"
+//     },
+//     "content": {
+//       "text": "Je pense , donc je suis"
+//     },
+//     "created_at": 1461113959088
+//   },
+//   {
+//     "user": {
+//       "name": "Johann von Goethe",
+//       "avatars": {
+//         "small": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_50.png",
+//         "regular": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1.png",
+//         "large": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_200.png"
+//       },
+//       "handle": "@johann49"
+//     },
+//     "content": {
+//       "text": "Es ist nichts schrecklicher als eine tätige Unwissenheit."
+//     },
+//     "created_at": 1461113796368
+//   }
+// ];
+// var dataJson = JSON.stringify(data);
+
 
 $(document).ready(function () {
 
-  var $form = $('form').on('submit', function(event){
-    event.preventDefault();
-    var tweetStrings= $('form').serialize();
-  });
+  // var $form = $('form').on('submit', function(event){
+  //   event.preventDefault();
+  //   var tweetStrings= $('form').serialize();
+  // });
+  loadTweets();
 
   function loadTweets() {
-    
+     $.ajax({
+      url: '/tweets',
+      type: 'GET',
+      success: function (result) {
+        result.forEach(function(tweet){
+          renderTweets(tweet);
+        });
+      },
+      error: function(err){
+        alert("there is an error");
+      }
+    });
   }
 
-
-  function postTweets(tweetStrings) {
-    //  $(function() {
-    //   var $button = $('#load-more-posts');
+  $('form').on('submit',function(e){
+    e.preventDefault();
+    let tweet = $('#tweettext').val();
+    console.log(tweet);
+    let data = {
+      text: tweet
+    };
+    if (!tweet.length){
+      alert("You need to type something in, dumbdumb")
+     } else if (tweet.length > 140) {
+        alert('your tweet is too damn long')
+      } else {
       $.ajax({
         url: '/tweets',
-        method: 'GET',
-        success: function (morePostsHtml) {
-          console.log('Success: ', morePostsHtml);
-          $button.replaceWith(morePostsHtml);
+        type: 'POST',
+        data: data,
+        success: function () {
+          console.log("it works!");  
+          loadTweets();
+          
+        },
+        error: function(err){
+          alert("Please type something in!");
         }
       });
-    // });    
-  }
-  postTweets();
+      
+     
+    
+    }
+      
+  });
 
-  function renderTweets(tweets) {
-    data.forEach(tweet => {
-      createTweetElement(tweet);
-    });
+  // function postTweets(tweetStrings) {
+  //   let tweet = $('#tweettext').val();
+  //   console.log(tweet);
+  //   let data = {
+  //     text: tweet
+  //   };
+  //     $.ajax({
+  //       url: '/tweets',
+  //       type: 'POST',
+  //       data: data,
+  //       success: function () {
+  //       console.log("it works!");  
+  //       }
+  //     });
+  //   // });    
+  // }
+  //postTweets();
+
+  function renderTweets(data) {
+    console.log(data);
+    createTweetElement(data);
+
+    // data.forEach(tweet => {
+    //   console.log(tweet);
+    //   //createTweetElement(tweet);
+    // });
     // console.log(tweets);    
     // for (var content of tweets) {
       
@@ -136,7 +188,7 @@ $(document).ready(function () {
     $article.append($tweettimer);
     // console.log($header);
     $('.container').append($tweet);
-    console.log('test');
+    //console.log('test');
 
     // //FOOTER PART
     // var footer 
