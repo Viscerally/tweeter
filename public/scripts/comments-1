@@ -1,0 +1,8 @@
+
+
+from `app.js` :
+        function postTweets(tweetStrings) {
+          $(function() {
+            var $button = $('#load-more-posts');
+            $.ajax({
+Question:  what does the `$(function() {` part of this do?  When is it useful?

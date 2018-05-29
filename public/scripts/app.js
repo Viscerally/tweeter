@@ -59,31 +59,51 @@ $(document).ready(function () {
 
   var $form = $('form').on('submit', function(event){
     event.preventDefault();
-    console.log($form.serialize());
+    var tweetStrings= $('form').serialize();
   });
+
+  function loadTweets() {
+    
+  }
+
+
+  function postTweets(tweetStrings) {
+    //  $(function() {
+    //   var $button = $('#load-more-posts');
+      $.ajax({
+        url: '/tweets',
+        method: 'GET',
+        success: function (morePostsHtml) {
+          console.log('Success: ', morePostsHtml);
+          $button.replaceWith(morePostsHtml);
+        }
+      });
+    // });    
+  }
+  postTweets();
+
   function renderTweets(tweets) {
-    console.log(tweets);
-
+    data.forEach(tweet => {
+      createTweetElement(tweet);
+    });
+    // console.log(tweets);    
     // for (var content of tweets) {
-
-    // }
+      
+      // }
     // var newTweet = createTweetElement(tweet);
-    // $('.showTweets').append(newTweet); 
-
-
-
-
+    // $('.showTweets').append(newTweet);
 
     // loops through tweets
     // calls createTweetElement for each tweet
     // takes return value and appends it to the tweets container
+
   }
 
   function createTweetElement(tweet) {
     let $tweet = $('<section>').addClass('showTweets');
-
+    let $article = $('<article>').addClass('tweet');
     let $header = $('<header>');
-
+    
     let $avatar = $('<img>').addClass('avatar').attr('src', tweet.user.avatars.small); //style is not yet created (still inline)
 
     let $tweetername = $('<span>').addClass('tweetername')
@@ -110,10 +130,10 @@ $(document).ready(function () {
     $tweettimer.append($i_flag);
     $tweettimer.append($i_rt);
     $tweettimer.append($i_heart);
-    
-    $tweet.append($header);
-    $tweet.append($tweetbod);
-    $tweet.append($tweettimer);
+    $tweet.append($article);
+    $article.append($header);
+    $article.append($tweetbod);
+    $article.append($tweettimer);
     // console.log($header);
     $('.container').append($tweet);
     console.log('test');
@@ -129,11 +149,8 @@ $(document).ready(function () {
 
     // return $tweet;
   }
-  data.forEach(tweet => {
-    createTweetElement(tweet);
-  });
 
 
   // renderTweets(data);
-
+  renderTweets();
 });
