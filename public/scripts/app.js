@@ -47,9 +47,9 @@ $(document).ready(function () {
       text: tweet
     };
     if (!tweet.length){
-      alert("You need to type something in, dumbdumb")
+      alert("You need to type something in")
      } else if (tweet.length > 140) {
-        alert('your tweet is too damn long')
+        alert('Your tweet is too long')
       } else {
       $.ajax({
         url: '/tweets',
