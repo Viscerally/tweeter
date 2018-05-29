@@ -71,42 +71,12 @@ $(document).ready(function () {
       
   });
 
-  // function postTweets(tweetStrings) {
-  //   let tweet = $('#tweettext').val();
-  //   console.log(tweet);
-  //   let data = {
-  //     text: tweet
-  //   };
-  //     $.ajax({
-  //       url: '/tweets',
-  //       type: 'POST',
-  //       data: data,
-  //       success: function () {
-  //       console.log("it works!");  
-  //       }
-  //     });
-  //   // });    
-  // }
-  //postTweets();
-
+  
   function renderTweets(data) {
     console.log(data);
     createTweetElement(data);
 
-    // data.forEach(tweet => {
-    //   console.log(tweet);
-    //   //createTweetElement(tweet);
-    // });
-    // console.log(tweets);    
-    // for (var content of tweets) {
-      
-      // }
-    // var newTweet = createTweetElement(tweet);
-    // $('.showTweets').append(newTweet);
-
-    // loops through tweets
-    // calls createTweetElement for each tweet
-    // takes return value and appends it to the tweets container
+    
 
   }
 
@@ -149,16 +119,7 @@ $(document).ready(function () {
     $('.container').append($tweet);
     //console.log('test');
 
-    // //FOOTER PART
-    // var footer 
-    // var img 
-
-    // footer.append(img);
-
-    // tweet.append(footer)
-
-
-    // return $tweet;
+    
   }
 
 
