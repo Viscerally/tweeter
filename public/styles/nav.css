@@ -25,5 +25,11 @@
   width: 99.53px;
   height: 80px;
   line-height: 80px;
+}
+
+#nav-bar .toggle {
+float: right;
+padding: 2em;
+
 
 }
